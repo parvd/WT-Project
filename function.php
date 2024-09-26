@@ -1,3 +1,12 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="process.css" >
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp"
+    crossorigin="anonymous">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+</head>
+<body class="bg-info">
 <?php
 include_once "config.php";
 session_start();
@@ -11,10 +20,10 @@ $i=0;
 $flag=5;
 $user_p="";
 
-echo "flag at starting=".$flag;
+/*echo "flag at starting=".$flag;
 echo "<br>";
 echo "<br>";echo "<br>";echo "<br>";
-echo $product_uid;
+echo $product_uid;*/
 $sql="SELECT bid_id,product_id from participation where username=? AND product_id=? ";
 if($stmt = mysqli_prepare($link, $sql)){
     mysqli_stmt_bind_param($stmt, "ss", $param_username,$param_pro);
@@ -77,22 +86,34 @@ if(empty(trim($_POST["uprice"]))){
 }
 
 $price_f=(int)$user_p;
-echo $price_f;
+//echo $price_f;
 }
 
 if(isset($price_f))
 {
+?>
+<div class="text-success bg-white text-center d-4 border-2 border-black">
+<div class="legend h2 d-2">Updates..</div>
+<?php
+echo "\nStatus: Price Entered \n"."<br>";
+?>
 
-echo "\nPrice Entered\n"."<br>";
+<?php
 $ini_price=(int)$ini_price;
-echo $bidid." ".$usern1." ".$price_f;
+echo "Bid-id:".$bidid." & Username:".$usern1."<br> "."Price Entered".$price_f;
 if($price_f<$ini_price)
 {
+?>
+<div class="text-danger">
+<?php
 echo "Invalid Price , Price Must Be Greater than '{$ini_price}' ";
+?>
+</div>
+<?php
 }
 else
 {
-  echo "<br>"."f=".is_null($flag);
+  //echo "<br>"."f=".is_null($flag);
   if(1)
   {
   echo "Bid Starts...";
@@ -122,16 +143,11 @@ else
  }
 
 }
-echo "flag at starting=".$flag;
+//echo "flag at starting=".$flag;
 
 ?>
 
-<!DOCTYPE html>
-<html>
-<head>
-<link rel="stylesheet" href="process.css" >
-</head>
-<body>
+</div>
 
 
 <br>
@@ -172,7 +188,7 @@ echo "<br>";
 
 if (mysqli_stmt_execute($stmt3)) {
 ?>
-<table>
+<table class="bg-info">
   
   <tr>
     <td>Owner Name</td>
@@ -182,7 +198,7 @@ if (mysqli_stmt_execute($stmt3)) {
     <td>Input Price</td>
   </tr>
 
-<tr>
+  <tr>
     <td><?php echo $own_user;?></td>
     <td><?php echo $productid;?></td>
     <td><?php echo $bidid;?></td>
@@ -198,17 +214,22 @@ if (mysqli_stmt_execute($stmt3)) {
     }
     else 
     {
-    echo $own_user." ".$usern1;
     ?>
-    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" class="flex-item" method="POST">
-    <input type="text" name="uprice" value=""></input>
-    <input type="submit" class="bb-button" name="submit" />
-  </form>
+    <div class="d-4 p-2">
+    <?php
+    echo "Owner:".$own_user.", Current Bidder: ".$usern1;
+    ?>
+    </div>
+    
+    <form class="form-group" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" class="flex-item" method="POST">
+      <input class="form-control inline" type="text" name="uprice" value=""></input>
+      <input class="form-control inline btn btn-outline-success" type="submit" class="bb-button" name="submit" />
+    </form>
     <?php
     }
     ?>
     </td>
-</tr>
+  </tr>
 
 </table>
  <?php
@@ -220,6 +241,9 @@ else{
 <?php
 }
 ?>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
 
 
 
